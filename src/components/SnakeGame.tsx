@@ -78,39 +78,39 @@ const SnakeGame = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-game-bg via-background to-game-bg flex items-center justify-center p-4 transition-colors duration-300">
-      <div className="flex flex-col items-center space-y-6 max-w-2xl w-full">
-        {/* Theme Toggle */}
-        <div className="absolute top-4 right-4">
-          <ThemeToggle />
-        </div>
-
-        {/* Header */}
-        <div className="text-center space-y-2 animate-fade-in">
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-snake via-snake-glow to-snake bg-clip-text text-transparent drop-shadow-lg">
-            🐍 SNAKE
-          </h1>
-          <p className="text-muted-foreground text-lg">
-            Use arrow keys or WASD to control the snake
-          </p>
-        </div>
-
-        {/* Score Display */}
-        <div className="flex gap-8 text-center">
-          <div className="space-y-1">
-            <p className="text-sm text-muted-foreground uppercase tracking-wide">Score</p>
-            <p className="text-2xl font-bold text-snake drop-shadow-sm">{gameState.score}</p>
+    <div className="min-h-screen bg-gradient-to-br from-game-bg via-background to-game-bg flex items-center justify-center p-2 md:p-4 transition-colors duration-300">
+      <div className="flex flex-col items-center space-y-3 md:space-y-4 max-w-4xl w-full">
+        {/* Header with Theme Toggle */}
+        <div className="flex items-center justify-between w-full max-w-2xl">
+          <div className="text-center flex-1">
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-snake via-snake-glow to-snake bg-clip-text text-transparent drop-shadow-lg">
+              🐍 SNAKE
+            </h1>
+            <p className="text-muted-foreground text-sm md:text-base hidden md:block">
+              Use arrow keys or WASD
+            </p>
           </div>
-          <div className="space-y-1">
-            <p className="text-sm text-muted-foreground uppercase tracking-wide">High Score</p>
-            <p className="text-2xl font-bold text-food drop-shadow-sm">{highScore}</p>
+          <div className="ml-4">
+            <ThemeToggle />
+          </div>
+        </div>
+
+        {/* Score Display - Compact */}
+        <div className="flex gap-6 md:gap-8 text-center">
+          <div className="space-y-0">
+            <p className="text-xs md:text-sm text-muted-foreground uppercase tracking-wide">Score</p>
+            <p className="text-lg md:text-xl font-bold text-snake drop-shadow-sm">{gameState.score}</p>
+          </div>
+          <div className="space-y-0">
+            <p className="text-xs md:text-sm text-muted-foreground uppercase tracking-wide">High Score</p>
+            <p className="text-lg md:text-xl font-bold text-food drop-shadow-sm">{highScore}</p>
           </div>
         </div>
 
         {/* Game Board */}
-        <Card className="p-6 bg-card/80 border-border/60 backdrop-blur-sm shadow-2xl">
+        <Card className="p-3 md:p-4 bg-card/80 border-border/60 backdrop-blur-sm shadow-2xl">
           <div 
-            className="grid gap-px bg-gradient-to-br from-grid via-grid/50 to-grid p-3 rounded-xl shadow-inner"
+            className="grid gap-px bg-gradient-to-br from-grid via-grid/50 to-grid p-2 md:p-3 rounded-xl shadow-inner"
             style={{
               gridTemplateColumns: `repeat(${GRID_SIZE}, minmax(0, 1fr))`,
               gridTemplateRows: `repeat(${GRID_SIZE}, minmax(0, 1fr))`,
@@ -122,7 +122,7 @@ const SnakeGame = () => {
               return (
                 <div
                   key={`${x}-${y}`}
-                  className="w-4 h-4 md:w-6 md:h-6 bg-background/20 border border-grid/20 rounded-sm flex items-center justify-center transition-all duration-75"
+                  className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5 bg-background/20 border border-grid/20 rounded-sm flex items-center justify-center transition-all duration-75"
                 >
                   {getCellContent(x, y)}
                 </div>
@@ -131,60 +131,56 @@ const SnakeGame = () => {
           </div>
         </Card>
 
-        {/* Game Controls */}
-        <div className="text-center space-y-4">
+        {/* Game Controls - More Compact */}
+        <div className="text-center space-y-2 w-full max-w-md">
           {!gameState.isPlaying && !gameState.isGameOver && (
             <div className="space-y-2 animate-fade-in">
               <Button 
                 onClick={startGame}
-                size="lg"
-                className="bg-gradient-to-r from-snake to-snake-glow hover:from-snake-glow hover:to-snake text-primary-foreground font-bold px-8 py-3 shadow-lg hover:shadow-[0_0_25px_hsl(var(--snake)/0.5)] transition-all duration-300 border border-snake-glow/30"
+                className="bg-gradient-to-r from-snake to-snake-glow hover:from-snake-glow hover:to-snake text-primary-foreground font-bold px-6 py-2 shadow-lg hover:shadow-[0_0_20px_hsl(var(--snake)/0.5)] transition-all duration-300 border border-snake-glow/30"
               >
                 🎮 Start Game
               </Button>
-              <p className="text-sm text-muted-foreground">Press Space to start</p>
+              <p className="text-xs text-muted-foreground">Press Space to start</p>
             </div>
           )}
 
           {gameState.isGameOver && (
-            <div className="space-y-3 animate-fade-in">
+            <div className="space-y-2 animate-fade-in">
               <div className="space-y-1">
-                <h2 className="text-2xl font-bold text-food drop-shadow-sm">💀 Game Over!</h2>
-                <p className="text-muted-foreground">
+                <h2 className="text-lg md:text-xl font-bold text-food drop-shadow-sm">💀 Game Over!</h2>
+                <p className="text-sm text-muted-foreground">
                   Final Score: <span className="text-snake font-bold">{gameState.score}</span>
                 </p>
               </div>
               <Button 
                 onClick={resetGame}
-                size="lg"
-                className="bg-gradient-to-r from-food to-food-glow hover:from-food-glow hover:to-food text-destructive-foreground font-bold px-8 py-3 shadow-lg hover:shadow-[0_0_25px_hsl(var(--food)/0.5)] transition-all duration-300 border border-food-glow/30"
+                className="bg-gradient-to-r from-food to-food-glow hover:from-food-glow hover:to-food text-destructive-foreground font-bold px-6 py-2 shadow-lg hover:shadow-[0_0_20px_hsl(var(--food)/0.5)] transition-all duration-300 border border-food-glow/30"
               >
                 🔄 Play Again
               </Button>
-              <p className="text-sm text-muted-foreground">Press Space to restart</p>
+              <p className="text-xs text-muted-foreground">Press Space to restart</p>
             </div>
           )}
 
           {gameState.isPlaying && (
-            <div className="space-y-2 animate-fade-in">
-              <div className="text-snake-glow font-bold text-lg animate-pulse">
+            <div className="space-y-1 animate-fade-in">
+              <div className="text-snake-glow font-bold text-base animate-pulse">
                 🎯 Playing...
               </div>
-              <p className="text-sm text-muted-foreground">
-                Eat the 🍎 to grow and increase your score!
+              <p className="text-xs text-muted-foreground">
+                Eat the 🍎 to grow!
               </p>
             </div>
           )}
         </div>
 
-        {/* Controls Guide */}
-        <div className="text-center text-sm text-muted-foreground space-y-2 max-w-md opacity-75">
-          <p className="font-semibold">🎮 Controls:</p>
-          <div className="grid grid-cols-2 gap-2 text-xs">
-            <div>↑ ↓ ← → Arrow Keys</div>
-            <div>W A S D Keys</div>
-            <div>Space: Start/Restart</div>
-            <div>🚫 Avoid walls and yourself!</div>
+        {/* Controls Guide - Minimal */}
+        <div className="text-center text-xs text-muted-foreground opacity-60 max-w-sm">
+          <div className="flex justify-center gap-4 flex-wrap">
+            <span>↑↓←→ or WASD</span>
+            <span>Space: Start/Restart</span>
+            <span>🚫 Avoid walls!</span>
           </div>
         </div>
       </div>
