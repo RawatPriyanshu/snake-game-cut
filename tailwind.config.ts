@@ -49,7 +49,9 @@ export default {
         },
         snake: {
           DEFAULT: "hsl(var(--snake))",
+          secondary: "hsl(var(--snake-secondary))",
           glow: "hsl(var(--snake-glow))",
+          eye: "hsl(var(--snake-eye))",
         },
         food: {
           DEFAULT: "hsl(var(--food))",
